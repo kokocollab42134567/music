@@ -34,20 +34,22 @@ const searchMusicOnYouTube = async (query) => {
     }
 };
 
-const downloadMusicAsMP3 = async (url, outputPath) => {
-    try {
-        await ytdl(url, {
-            output: outputPath,
-            extractAudio: true,
-            audioFormat: 'mp3',
-        });
+
+
+const downloadMusicAsMP3 = (url, outputPath) => {
+    return ytdl(url, {
+        extractAudio: true,
+        audioFormat: 'mp3',
+        output: outputPath,
+    }).then(() => {
         console.log(`Downloaded: ${outputPath}`);
         return outputPath;
-    } catch (error) {
+    }).catch((error) => {
         console.error('Error downloading MP3:', error);
         throw error;
-    }
+    });
 };
+
 
 const startSock = async () => {
     const { state, saveCreds } = await useMultiFileAuthState('./auth');
