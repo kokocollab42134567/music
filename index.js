@@ -35,7 +35,6 @@ const searchMusicOnYouTube = async (query) => {
 };
 
 
-
 const downloadMusicAsMP3 = (url, outputPath) => {
     return ytdl(url, {
         extractAudio: true,
