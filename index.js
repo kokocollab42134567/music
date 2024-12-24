@@ -3,7 +3,7 @@ require('dotenv').config(); // Load environment variables
 const { default: makeWASocket, DisconnectReason, useMultiFileAuthState } = require('@whiskeysockets/baileys');
 const { Boom } = require('@hapi/boom');
 const axios = require('axios');
-const ytdl = require('youtube-dl-exec');
+const ytdl = require('youtube-dl-exec').create('yt-dlp');
 const fs = require('fs');
 const { readFile } = require('fs/promises');
 
