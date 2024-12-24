@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm install yt-dlp",
   },
   "keywords": [],
   "author": "",
@@ -14,6 +15,7 @@
     "@whiskeysockets/baileys": "^6.7.9",
     "axios": "^1.7.9",
     "dotenv": "^16.4.7",
-    "youtube-dl-exec": "^3.0.10"
+    "yt-dlp": "^2023.09.24",
+    "youtube-dl-exec": "^2.0.0",
   }
 }
