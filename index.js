@@ -3,7 +3,7 @@ require('dotenv').config(); // Load environment variables
 const { default: makeWASocket, DisconnectReason, useMultiFileAuthState } = require('@whiskeysockets/baileys');
 const { Boom } = require('@hapi/boom');
 const axios = require('axios');
-const ytdl = require('youtube-dl-exec');
+const ytdl = require('youtube-dl-exec').create('./node_modules/.bin/yt-dlp'); // Use the binary path explicitly
 const fs = require('fs');
 const { readFile } = require('fs/promises');
 
@@ -11,6 +11,7 @@ const { readFile } = require('fs/promises');
 const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY; // Use environment variable
 const YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3/search';
 
+// Function to search for music on YouTube
 const searchMusicOnYouTube = async (query) => {
     try {
         const response = await axios.get(YOUTUBE_API_URL, {
@@ -34,6 +35,7 @@ const searchMusicOnYouTube = async (query) => {
     }
 };
 
+// Function to download MP3 from YouTube
 const downloadMusicAsMP3 = async (url, outputPath) => {
     try {
         await ytdl(url, {
@@ -45,10 +47,13 @@ const downloadMusicAsMP3 = async (url, outputPath) => {
         return outputPath;
     } catch (error) {
         console.error('Error downloading MP3:', error);
+        console.error('stderr:', error.stderr);
+        console.error('stdout:', error.stdout);
         throw error;
     }
 };
 
+// Function to start the WhatsApp bot
 const startSock = async () => {
     const { state, saveCreds } = await useMultiFileAuthState('./auth');
 
@@ -120,4 +125,5 @@ const startSock = async () => {
     return sock;
 };
 
+// Start the WhatsApp bot
 startSock().catch((err) => console.error('Error starting the bot:', err));
